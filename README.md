@@ -63,7 +63,7 @@ Akses dashboard di `http://localhost:3000`, login dengan email dan password di a
 
 ```bash
 # 1. Clone atau download proyek
-git clone https://github.com/bilanamaulia/my-dash-v2.git
+git clone https://github.com/bilanawati99/jaya-jaya-institut.git
 cd jaya-jaya-institut
 
 # 2. Install dependencies

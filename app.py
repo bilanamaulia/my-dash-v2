@@ -356,7 +356,6 @@ with tab3:
 
     st.markdown("---")
     st.markdown("""
-    **Dikembangkan oleh:** Bilanawati (bilanawati_99)  
-    **Email:** bilanamaulia@gmail.com  
+    **Dikembangkan oleh:** Bilanawati Maulia
     **Tools:** Python, Scikit-learn, Streamlit, Pandas, Matplotlib, Seaborn  
     """)

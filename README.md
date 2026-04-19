@@ -1,6 +1,6 @@
 # Proyek Akhir: Menyelesaikan Permasalahan Institusi Pendidikan
 
-**Nama:** Bilanawati  
+**Nama:** Bilanawati Maulia Masruroh
 **Username Dicoding:** bilanawati_99  
 **Email:** bilanamaulia@gmail.com
 
@@ -9,49 +9,66 @@
 ## Business Understanding
 
 ### Latar Belakang
-Jaya Jaya Institut merupakan institusi pendidikan tinggi yang telah berdiri sejak tahun 2000. Meskipun telah mencetak banyak lulusan dengan reputasi baik, institusi ini menghadapi permasalahan serius: tingginya angka **dropout mahasiswa yang mencapai 32.12%** dari total 4.424 mahasiswa.
+Jaya Jaya Institut merupakan institusi pendidikan tinggi yang telah berdiri sejak tahun 2000. Meskipun telah mencetak banyak lulusan dengan reputasi baik, institusi ini menghadapi permasalahan serius berupa tingginya angka dropout mahasiswa. Jumlah dropout yang tinggi tentunya menjadi salah satu masalah yang besar bagi sebuah institusi pendidikan.
 
-Tingginya angka dropout berdampak negatif terhadap reputasi institusi, pendapatan, dan akreditasi. Oleh karena itu, dibutuhkan sistem prediksi berbasis machine learning untuk mendeteksi sedini mungkin mahasiswa yang berpotensi dropout agar dapat diberikan intervensi dan bimbingan khusus.
+Oleh karena itu, Jaya Jaya Institut ingin mendeteksi secepat mungkin mahasiswa yang mungkin akan melakukan dropout sehingga dapat diberi bimbingan khusus.
 
 ### Permasalahan Bisnis
 1. Bagaimana mengidentifikasi faktor-faktor utama yang berkontribusi terhadap dropout mahasiswa?
-2. Bagaimana membangun model machine learning yang dapat memprediksi status mahasiswa (Dropout / Enrolled / Graduate) secara akurat?
+2. Bagaimana membangun model machine learning yang dapat memprediksi apakah seorang mahasiswa akan **Dropout** atau **Graduate**?
 3. Bagaimana menyediakan dashboard monitoring yang memudahkan pihak institusi memantau performa mahasiswa?
 
 ### Cakupan Proyek
 - **Exploratory Data Analysis (EDA)**: Memahami distribusi data dan hubungan antar fitur
-- **Data Preprocessing**: Encoding target variable, scaling, dan train-test split
-- **Machine Learning Modeling**: Pelatihan dan evaluasi Random Forest Classifier
-- **Business Dashboard**: Visualisasi data menggunakan Metabase (dijalankan via Docker)
+- **Data Preprocessing**: Filtering data (Dropout & Graduate saja), encoding, scaling, train-test split
+- **Machine Learning Modeling**: Pelatihan model binary classification (Dropout vs Graduate)
+- **Business Dashboard**: Visualisasi data untuk monitoring performa mahasiswa via Streamlit
 - **Deployment**: Prototype Streamlit yang dapat diakses secara online
 
 ### Persiapan
 
-**Sumber data:** Dataset performa mahasiswa Jaya Jaya Institut (`data.csv`) — 4.424 baris, 37 kolom, tanpa missing values.
+**Sumber data:** [students_performance.csv](https://github.com/dicodingacademy/dicoding_dataset/blob/main/students_performance/README.md)
 
 **Setup environment:**
+
 ```bash
+# 1. Pastikan Python 3.10+ sudah terinstall
+python --version
+
+# 2. Buat virtual environment
+python -m venv venv
+
+# Aktivasi virtual environment
+# Windows:
+venv\Scripts\activate
+# macOS/Linux:
+source venv/bin/activate
+
+# 3. Install seluruh dependencies
 pip install -r requirements.txt
+
+# 4. Jalankan prototype machine learning (Streamlit)
+streamlit run app.py
+
+# 5. Jalankan notebook untuk melihat seluruh proses analisis
+jupyter notebook notebook.ipynb
 ```
 
 ---
 
 ## Business Dashboard
 
-Dashboard business dibuat menggunakan **Metabase** untuk memudahkan pihak institusi dalam:
-- Memantau distribusi status mahasiswa (Dropout, Enrolled, Graduate)
-- Menganalisis pengaruh faktor keuangan (UKT, beasiswa, debitur) terhadap dropout
-- Memvisualisasikan performa akademik per semester
-- Monitoring tren usia mahasiswa berdasarkan status
+Dashboard business dibuat menggunakan **Streamlit** dan dapat diakses secara online melalui Streamlit Community Cloud.
 
-**Email Metabase:** root@mail.com  
-**Password Metabase:** root123
+Dashboard menampilkan:
+- KPI utama: total mahasiswa, jumlah dropout, graduate, dan enrolled
+- Distribusi status mahasiswa (bar chart dan proporsi)
+- Analisis dropout rate vs status pembayaran UKT
+- Distribusi usia mahasiswa berdasarkan status (Dropout vs Graduate)
+- Distribusi unit lulus semester 2 (Dropout vs Graduate)
+- Prediksi status akhir mahasiswa Enrolled menggunakan model ML
 
-**Cara menjalankan Metabase via Docker:**
-```bash
-docker run -d -p 3000:3000 --name metabase metabase/metabase
-```
-Akses dashboard di `http://localhost:3000`, login dengan email dan password di atas.
+**Link Dashboard:** (https://my-dash-bila.streamlit.app/)
 
 **Screenshot dashboard:** `bilanawati_99-dashboard.png`
 
@@ -59,12 +76,10 @@ Akses dashboard di `http://localhost:3000`, login dengan email dan password di a
 
 ## Menjalankan Sistem Machine Learning
 
-### Instalasi Lokal
+### Instalasi dan Menjalankan Lokal
 
 ```bash
-# 1. Clone atau download proyek
-git clone https://github.com/bilanamaulia/my-dash-v2.git
-cd jaya-jaya-institut
+# 1. Pastikan virtual environment sudah aktif (lihat bagian Persiapan)
 
 # 2. Install dependencies
 pip install -r requirements.txt
@@ -77,19 +92,21 @@ Aplikasi akan terbuka otomatis di browser pada `http://localhost:8501`
 
 ### Akses Online (Streamlit Community Cloud)
 
-🔗 **Link Prototype:** [https://jaya-jaya-institut-dropout.streamlit.app](https://jaya-jaya-institut-dropout.streamlit.app)
+**Link Prototype:** (https://my-dash-bila.streamlit.app/)
 
 ### Cara Penggunaan Prototype
 
 1. Buka aplikasi melalui link di atas
-2. Pilih tab **"🔮 Prediksi Mahasiswa"**
+2. Pilih tab **"Prediksi Mahasiswa"**
 3. Isi formulir data mahasiswa:
    - Data Pribadi (usia, gender, status pernikahan)
    - Data Akademik (program studi, nilai masuk, kualifikasi sebelumnya)
    - Performa Akademik Semester 1 & 2 (unit diambil, lulus, nilai rata-rata)
-   - Data Keuangan (status UKT, beasiswa, debitur)
-4. Klik tombol **"🔮 Prediksi Sekarang"**
-5. Lihat hasil prediksi dan probabilitas per kelas
+   - Data Finansial (status UKT, beasiswa, debitur)
+4. Klik tombol **"Prediksi Sekarang"**
+5. Lihat hasil prediksi (Dropout atau Graduate) beserta tingkat kepercayaan model
+
+> **Catatan**: Model memprediksi status **Dropout** atau **Graduate**. Data mahasiswa yang masih berstatus *Enrolled* (aktif) juga dapat diinput untuk mengetahui prediksi status akhir mereka di masa depan — sebagai bagian dari tahap inferensi.
 
 ---
 
@@ -97,24 +114,26 @@ Aplikasi akan terbuka otomatis di browser pada `http://localhost:8501`
 
 ### Temuan Utama
 
-1. **Angka Dropout Tinggi**: 32.12% mahasiswa (1.421 dari 4.424) melakukan dropout — masalah serius yang membutuhkan penanganan segera.
+1. **Angka Dropout Signifikan**: Dari 4.424 mahasiswa, terdapat mahasiswa yang dropout dan graduate dalam jumlah yang signifikan. Analisis lengkap tersedia di notebook.
 
-2. **Faktor Akademik adalah Prediktor Terkuat**: Unit kurikulum yang disetujui dan nilai semester 1 & 2 merupakan prediktor paling signifikan. Mahasiswa yang tidak mengikuti evaluasi (nilai = 0) di semester pertama hampir pasti dropout.
+2. **Faktor Akademik Dominan**: Unit kurikulum yang disetujui di semester 2 adalah prediktor terkuat (importance: 22.50%). Mahasiswa dropout rata-rata hanya lulus 1.36 unit di semester 2, jauh di bawah graduate yang rata-rata 5.90 unit.
 
-3. **Faktor Keuangan Kritis**: Mahasiswa yang menunggak UKT memiliki dropout rate hingga **86%**. Penerima beasiswa sebaliknya memiliki graduate rate yang jauh lebih tinggi.
+3. **Faktor Keuangan Kritis**: Mahasiswa yang menunggak UKT memiliki dropout rate sangat tinggi. Penerima beasiswa sebaliknya memiliki graduate rate yang jauh lebih tinggi.
 
-4. **Usia Berpengaruh**: Mahasiswa yang lebih tua saat mendaftar (>25 tahun) cenderung lebih berisiko dropout, kemungkinan karena beban kerja atau keluarga.
+4. **Usia Berpengaruh**: Mahasiswa dropout rata-rata 3.3 tahun lebih tua saat mendaftar, mengindikasikan beban kerja atau keluarga sebagai faktor.
 
-5. **Model Machine Learning**: Random Forest mencapai akurasi **76.84%** dengan CV score **77.40% ± 0.79%** — stabil dan andal untuk sistem early warning dropout.
+5. **Model Binary lebih Valid**: Dengan hanya menggunakan data Dropout dan Graduate (status yang sudah final), model mencapai akurasi **91.18%** (CV: 90.50% ± 0.47%). Data Enrolled tidak digunakan dalam training karena belum memiliki label akhir — melainkan hanya pada tahap inferensi.
+
+6. **Inferensi Enrolled**: Dari 794 mahasiswa Enrolled, model memprediksi 355 (44.7%) berpotensi dropout dan perlu mendapat perhatian segera.
 
 ### Rekomendasi Action Items
 
-1. **Sistem Early Warning Akademik**: Implementasikan monitoring otomatis untuk mahasiswa yang tidak mengikuti evaluasi di semester pertama. Jika mahasiswa tidak lulus satupun unit mata kuliah di semester 1, segera lakukan intervensi konseling akademik.
+1. **Sistem Early Warning Akademik**: Implementasikan monitoring otomatis untuk mahasiswa yang tidak lulus unit apapun di semester pertama sebagai red flag utama. Lakukan intervensi konseling segera.
 
-2. **Program Bantuan Keuangan Proaktif**: Identifikasi mahasiswa yang menunggak UKT sejak awal semester dan proaktif tawarkan program cicilan, beasiswa darurat, atau keringanan biaya sebelum mereka memutuskan dropout.
+2. **Program Bantuan Keuangan Proaktif**: Identifikasi mahasiswa yang menunggak UKT sejak awal semester dan tawarkan program cicilan, beasiswa darurat, atau keringanan biaya sebelum mereka memutuskan dropout.
 
-3. **Mentoring Mahasiswa Berisiko Tinggi**: Buat program mentoring dan konseling khusus untuk: mahasiswa berusia >25 tahun, mahasiswa dengan IPK rendah di semester pertama, dan mahasiswa yang teridentifikasi berisiko tinggi oleh sistem prediksi ML.
+3. **Mentoring Mahasiswa Berisiko Tinggi**: Buat program mentoring dan konseling khusus untuk mahasiswa berusia >25 tahun, mahasiswa dengan nilai rendah di semester pertama, dan mahasiswa yang teridentifikasi berisiko tinggi oleh sistem prediksi ML.
 
-4. **Perluas Program Beasiswa**: Data menunjukkan penerima beasiswa memiliki tingkat kelulusan jauh lebih tinggi. Perluas program beasiswa prestasi dan beasiswa berbasis kebutuhan ekonomi untuk mahasiswa yang berpotensi tapi terkendala finansial.
+4. **Perluas Program Beasiswa**: Data menunjukkan penerima beasiswa memiliki tingkat kelulusan jauh lebih tinggi. Perluas program beasiswa berbasis kebutuhan dan prestasi.
 
-5. **Dashboard Real-time & Rutinitas Review**: Gunakan business dashboard untuk monitoring performa mahasiswa secara berkala — minimal setiap awal dan akhir semester — sehingga potensi dropout dapat dideteksi dan ditangani sejak dini.
+5. **Prediksi Berkala untuk Mahasiswa Enrolled**: Jalankan model secara rutin pada mahasiswa yang masih aktif (Enrolled) untuk mendeteksi potensi dropout sedini mungkin dan mengambil tindakan preventif.
